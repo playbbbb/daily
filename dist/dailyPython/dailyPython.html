@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://zasellaid.njshangka.com/client/dailyPaper.html -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>日报</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        p {
+            padding-left: 15px;
+        }
+
+        .textarea {
+            width: 100%;
+            height: 195px;
+            border: none;
+        }
+
+        .btn {
+            margin: 30px 0;
+            color: #fff;
+            width: 100%;
+            height: 30px;
+            background-color: #32afff;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+
+<body style="background-color: #f4f5f9;">
+
+<form>
+    用户名:<input type="text" id="userName" name="userName" value="17602527038">
+    密码:<input type="text" id="passWord" name="passWord" value="123456">
+</form>
+
+
+<p>昨日总结</p>
+<textarea name="yesterday" class="textarea" id="yesterday" cols="30" rows="10" placeholder="请填写昨日总结（最多200字）"></textarea>
+<p>今日目标</p>
+<textarea name="today" class="textarea" id="today" cols="30" rows="10" placeholder="请填写今日目标（最多200字）"></textarea>
+<script type="text/javascript" src="js/qwebchannel.js"></script>
+<script>
+
+    window.onload = function () {
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+            window.pyjs = channel.objects.pyjs;
+            // pyjs.result.connect(function(message){
+            // 	alert("connectCallResult:"+message);
+            // })
+            //
+            // //js call py
+            // var callResult = pyjs.myHello("loowj",function(returnValue){
+            // 	alert(returnValue);
+            // });
+            // window.handler=channel.objects.handler;
+            // handler.getUserName(userName)
+            //  console.log("-------","getUserName")
+            // });
+
+        });
+    }
+
+    function myFunction() {
+        var yesterday = document.getElementById("yesterday").value;
+        var today = document.getElementById("today").value;
+        var userName = document.getElementById("userName").value;
+        var passwordText = document.getElementById("passWord").value;
+        console.log("---------yesterday::" + yesterday, "passwordText:::" + passwordText);
+        pyjs.getUserName(userName, passwordText,yesterday,today,function (rs) {
+            console.log(rs);
+            alert(rs)
+        })
+    }
+</script>
+
+
+<button onclick="myFunction()">提交</button>
+
+
+</body>
+</html>
